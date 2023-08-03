@@ -1,0 +1,76 @@
+.block-insights {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+}
+
+.search-bar {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.search-bar input {
+  flex-grow: 1;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.search-bar button {
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+.transaction-receipt {
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.transaction-receipt a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.transaction-receipt a:hover {
+  text-decoration: underline;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+}
+
+.transaction-details {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.transaction-details p {
+  flex: 1 1 50%;
+}

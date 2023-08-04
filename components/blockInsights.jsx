@@ -1,13 +1,13 @@
 import { Utils } from 'alchemy-sdk'
-import React from 'react'
-import '../styles/BlockInsights.css'
+import { useState } from 'react'
+import styles from '../styles/BlockInsights.module.css'
 
-export default function BlockInsights() {
-  const [isLoading, setIsloading] = React.useState(false)
-  const [blockInput, setBlockInput] = React.useState('')
-  const [hasSearched, setHasSearched] = React.useState(false)
-  const [receipts, setReceipts] = React.useState([])
-  const [page, setPage] = React.useState(0)
+export default function BlockInsights({ chain }) {
+  const [isLoading, setIsloading] = useState(false)
+  const [blockInput, setBlockInput] = useState('')
+  const [hasSearched, setHasSearched] = useState(false)
+  const [receipts, setReceipts] = useState([])
+  const [page, setPage] = useState(0)
   const itemsPerPage = 10
 
   const handleSearch = async () => {
@@ -15,7 +15,10 @@ export default function BlockInsights() {
     setHasSearched(true)
     const res = await fetch('/api/blockInsights', {
       method: 'POST',
-      body: JSON.stringify({ blockHash: blockInput })
+      body: JSON.stringify({
+        blockHash: blockInput,
+        chain: chain ? chain : 'ETH_MAINNET'
+      })
     })
 
     const txReceipts = await res.json()
@@ -28,13 +31,13 @@ export default function BlockInsights() {
     : []
 
   return (
-    <div className='block-insights'>
+    <div className={styles.block_insights}>
       <h1>Block Insights</h1>
       {transactionsToShow.length > 0 && (
         <p>Total transactions in block: {receipts.length}</p>
       )}
 
-      <div className='search-bar'>
+      <div className={styles.search_bar}>
         <input
           type='text'
           placeholder='Enter block hash'
@@ -45,8 +48,8 @@ export default function BlockInsights() {
       </div>
       {transactionsToShow.length > 0 ? (
         transactionsToShow.map((receipt, index) => (
-          <div key={index} className='transaction-receipt'>
-            <div className='transaction-details'>
+          <div key={index} className={styles.transaction_receipt}>
+            <div className={styles.transaction_details}>
               <p>
                 Transaction Hash:
                 <a
@@ -90,7 +93,7 @@ export default function BlockInsights() {
             : ''}
         </p>
       )}
-      <div className='pagination'>
+      <div className={styles.pagination}>
         {page > 0 && (
           <button onClick={() => setPage(page - 1)}>Previous</button>
         )}

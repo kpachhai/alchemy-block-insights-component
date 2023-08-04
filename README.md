@@ -31,29 +31,29 @@ Make sure you have the following dependencies installed in your project:
 
 ### Step 2: Add the CSS File
 
-Create a file named BlockInsights.css within your styles directory (styles/) and add the following styling:
+Create a file named BlockInsights.module.css within your styles directory (styles/) and add the following styling:
 
 ```
-.block-insights {
+.block_insights {
   margin: 20px;
   padding: 20px;
   border: 1px solid #ddd;
   font-family: Arial, sans-serif;
 }
 
-.search-bar {
+.search_bar {
   display: flex;
   margin-bottom: 20px;
   align-items: center;
 }
 
-.search-bar input {
+.search_bar input {
   flex-grow: 1;
   padding: 5px;
   border-radius: 3px;
 }
 
-.search-bar button {
+.search_bar button {
   padding: 5px 10px;
   border-radius: 3px;
   cursor: pointer;
@@ -62,11 +62,11 @@ Create a file named BlockInsights.css within your styles directory (styles/) and
   border: none;
 }
 
-.search-bar button:hover {
+.search_bar button:hover {
   background-color: #0056b3;
 }
 
-.transaction-receipt {
+.transaction_receipt {
   padding: 15px;
   margin: 10px 0;
   border: 1px solid #ccc;
@@ -74,12 +74,12 @@ Create a file named BlockInsights.css within your styles directory (styles/) and
   border-radius: 5px;
 }
 
-.transaction-receipt a {
+.transaction_receipt a {
   text-decoration: none;
   color: #007bff;
 }
 
-.transaction-receipt a:hover {
+.transaction_receipt a:hover {
   text-decoration: underline;
 }
 
@@ -102,12 +102,12 @@ Create a file named BlockInsights.css within your styles directory (styles/) and
   background-color: #0056b3;
 }
 
-.transaction-details {
+.transaction_details {
   display: flex;
   flex-wrap: wrap;
 }
 
-.transaction-details p {
+.transaction_details p {
   flex: 1 1 50%;
 }
 ```
@@ -116,7 +116,7 @@ Create a file named BlockInsights.css within your styles directory (styles/) and
 
 Create a file named blockInsights.js within your API directory (pages/api/) and add the following code:
 
-```
+```javascript
 import { Alchemy, Network } from 'alchemy-sdk'
 
 export default async function handler(req, res) {
@@ -159,19 +159,19 @@ export default async function handler(req, res) {
 
 ### Step 4: Create the Block Insights Component
 
-Create a file named BlockInsights.js within your components directory (components/) and add the following code:
+Create a file named blockInsights.jsx within your components directory (components/) and add the following code:
 
-```
+```javascript
 import { Utils } from 'alchemy-sdk'
-import React from 'react'
-import '../styles/BlockInsights.css'
+import { useState } from 'react'
+import styles from '../styles/BlockInsights.module.css'
 
-export default function BlockInsights() {
-  const [isLoading, setIsloading] = React.useState(false)
-  const [blockInput, setBlockInput] = React.useState('')
-  const [hasSearched, setHasSearched] = React.useState(false)
-  const [receipts, setReceipts] = React.useState([])
-  const [page, setPage] = React.useState(0)
+export default function BlockInsights({ chain }) {
+  const [isLoading, setIsloading] = useState(false)
+  const [blockInput, setBlockInput] = useState('')
+  const [hasSearched, setHasSearched] = useState(false)
+  const [receipts, setReceipts] = useState([])
+  const [page, setPage] = useState(0)
   const itemsPerPage = 10
 
   const handleSearch = async () => {
@@ -179,7 +179,10 @@ export default function BlockInsights() {
     setHasSearched(true)
     const res = await fetch('/api/blockInsights', {
       method: 'POST',
-      body: JSON.stringify({ blockHash: blockInput })
+      body: JSON.stringify({
+        blockHash: blockInput,
+        chain: chain ? chain : 'ETH_MAINNET'
+      })
     })
 
     const txReceipts = await res.json()
@@ -192,13 +195,13 @@ export default function BlockInsights() {
     : []
 
   return (
-    <div className='block-insights'>
+    <div className={styles.block_insights}>
       <h1>Block Insights</h1>
       {transactionsToShow.length > 0 && (
         <p>Total transactions in block: {receipts.length}</p>
       )}
 
-      <div className='search-bar'>
+      <div className={styles.search_bar}>
         <input
           type='text'
           placeholder='Enter block hash'
@@ -209,8 +212,8 @@ export default function BlockInsights() {
       </div>
       {transactionsToShow.length > 0 ? (
         transactionsToShow.map((receipt, index) => (
-          <div key={index} className='transaction-receipt'>
-            <div className='transaction-details'>
+          <div key={index} className={styles.transaction_receipt}>
+            <div className={styles.transaction_details}>
               <p>
                 Transaction Hash:
                 <a
@@ -254,7 +257,7 @@ export default function BlockInsights() {
             : ''}
         </p>
       )}
-      <div className='pagination'>
+      <div className={styles.pagination}>
         {page > 0 && (
           <button onClick={() => setPage(page - 1)}>Previous</button>
         )}
@@ -271,15 +274,20 @@ export default function BlockInsights() {
 
 You can now use the <BlockInsights /> component within your DApp like any other React component:
 
-```
-import BlockInsights from './components/BlockInsights'
+1. Import `BlockInsights` component at the top `BlockInsights from "../components/blockInsights.jsx"`
 
+```javascript
+import BlockInsights from './components/blockInsights'
+```
+
+2. Add the `blockInsights` component to the return statement and pass in the props as parameters:
+
+```javascript
 function App() {
   return (
-    <div>
-      <BlockInsights />
-      {/* Other components */}
-    </div>
+    <main className={styles.main}>
+      <BlockInsights chain={'ETH_MAINNET'} />
+    </main>
   )
 }
 ```

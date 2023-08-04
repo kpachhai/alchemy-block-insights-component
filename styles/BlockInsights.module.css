@@ -1,23 +1,23 @@
-.block-insights {
+.block_insights {
   margin: 20px;
   padding: 20px;
   border: 1px solid #ddd;
   font-family: Arial, sans-serif;
 }
 
-.search-bar {
+.search_bar {
   display: flex;
   margin-bottom: 20px;
   align-items: center;
 }
 
-.search-bar input {
+.search_bar input {
   flex-grow: 1;
   padding: 5px;
   border-radius: 3px;
 }
 
-.search-bar button {
+.search_bar button {
   padding: 5px 10px;
   border-radius: 3px;
   cursor: pointer;
@@ -26,11 +26,11 @@
   border: none;
 }
 
-.search-bar button:hover {
+.search_bar button:hover {
   background-color: #0056b3;
 }
 
-.transaction-receipt {
+.transaction_receipt {
   padding: 15px;
   margin: 10px 0;
   border: 1px solid #ccc;
@@ -38,12 +38,12 @@
   border-radius: 5px;
 }
 
-.transaction-receipt a {
+.transaction_receipt a {
   text-decoration: none;
   color: #007bff;
 }
 
-.transaction-receipt a:hover {
+.transaction_receipt a:hover {
   text-decoration: underline;
 }
 
@@ -66,11 +66,11 @@
   background-color: #0056b3;
 }
 
-.transaction-details {
+.transaction_details {
   display: flex;
   flex-wrap: wrap;
 }
 
-.transaction-details p {
+.transaction_details p {
   flex: 1 1 50%;
 }

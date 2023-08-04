@@ -33,7 +33,7 @@ Make sure you have the following dependencies installed in your project:
 
 Create a file named BlockInsights.module.css within your styles directory (styles/) and add the following styling:
 
-```
+```css
 .block_insights {
   margin: 20px;
   padding: 20px;

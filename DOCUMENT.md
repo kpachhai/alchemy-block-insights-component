@@ -20,7 +20,7 @@ The Block Insights component was chosen to address a significant gap in the curr
 
 ## Step by Step Tutorial on How to Implement the Component
 
-Please refer to the previously provided README for the complete step-by-step guide on implementing this component within a Web3 DApp.
+Please refer to the [README](./README.md) for the complete step-by-step guide on implementing this component within a Web3 DApp.
 
 ## Go-To-Market Strategy
 
